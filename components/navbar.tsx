@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, Home, User, GraduationCap, Code, Briefcase, FileText, Mail } from "lucide-react"
+import { Menu, X, Home, User, GraduationCap, Code, Briefcase, FileText, Mail, Award, Eye } from "lucide-react"
 
 interface NavbarProps {
   scrollToSection: (sectionId: string) => void
@@ -13,14 +13,17 @@ export default function Navbar({ scrollToSection }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState("hero")
 
+  // Update menuItems array to include "Certifications"
   const menuItems = [
     { id: "hero", label: "Home", icon: Home },
     { id: "about", label: "About", icon: User },
     { id: "education", label: "Education", icon: GraduationCap },
     { id: "skills", label: "Skills", icon: Code },
+    { id: "certifications", label: "Certifications", icon: Award },
     { id: "projects", label: "Projects", icon: Code },
     { id: "experience", label: "Experience", icon: Briefcase },
     { id: "publications", label: "Publications", icon: FileText },
+    { id: "gallery", label: "Gallery", icon: Eye },
     { id: "contact", label: "Contact", icon: Mail },
   ]
 

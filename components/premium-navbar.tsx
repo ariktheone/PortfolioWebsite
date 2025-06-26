@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, Home, User, Code, Briefcase, FileText, Mail } from "lucide-react"
+import { Menu, X, Home, User, Code, Briefcase, FileText, Mail, Award } from "lucide-react"
 
 interface NavbarProps {
   scrollToSection: (sectionId: string) => void
@@ -17,9 +17,11 @@ export default function PremiumNavbar({ scrollToSection }: NavbarProps) {
     { id: "hero", label: "Home", icon: Home },
     { id: "about", label: "About", icon: User },
     { id: "skills", label: "Skills", icon: Code },
+    
     { id: "projects", label: "Projects", icon: Briefcase },
     { id: "experience", label: "Experience", icon: FileText },
     { id: "publications", label: "Publications", icon: FileText },
+    { id: "certifications", label: "Certifications", icon: Award },
     { id: "gallery", label: "Gallery", icon: User }, // Using User as placeholder, you can change to Eye if imported
     { id: "contact", label: "Contact", icon: Mail },
   ]

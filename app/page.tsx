@@ -42,6 +42,9 @@ import Image from "next/image"
 import { Home } from "lucide-react"
 import { useState, useRef } from "react"
 import CircularGallery from "@/components/circular-gallery"
+import InfiniteScroll from "@/components/infinite-scroll"
+import CertificationCard from "@/components/certification-card"
+import HorizontalCardScroll from "@/components/horizontal-card-scroll"
 
 export default function Portfolio() {
   const { scrollYProgress } = useScroll()
@@ -56,6 +59,105 @@ export default function Portfolio() {
     "Cloud & DevOps": ["Git", "GitHub Actions", "Linux", "Docker", "CI/CD"],
     Databases: ["MySQL", "PostgreSQL", "MongoDB", "SQLite"],
   }
+
+  const certifications = [
+    {
+      title: "JavaScript for Beginners: The Complete Course",
+      issuer: "Udemy",
+      date: "August 2023",
+      image: "JavaScript for Beginners: The Complete Course.png", // Replace with your actual certificate image
+      credentialLink: "http://ude.my/UC-9f1f4002-6973-4d6b-958b-f75293581de6", // Replace with your actual certificate URL
+      credentialId: "UDEMY-JS-BEGINNER-080123",
+      skills: ["JavaScript", "Web Development", "Frontend Basics", "Programming Fundamentals"]
+    },
+    {
+      title: "TensorFlow Developer Certificate",
+      issuer: "Google",
+      date: "May 2024",
+      image: "/placeholder.svg",
+      credentialLink: "https://www.tensorflow.org/certificate",
+      credentialId: "TF12345",
+      skills: ["TensorFlow", "Keras", "Model Deployment"]
+    },
+    {
+      title: "Security, Compliance, and Identity Fundamentals",
+      issuer: "Microsoft",
+      date: "May 2023", // Adjust if needed
+      image: "Security, Compliance, and Identity Fundamentals.png",
+      credentialLink: "https://www.credly.com/badges/0ae5dbf6-94e3-427f-8be9-c985c9a98064/linked_in_profile",
+      credentialId: "SC-900",
+      skills: [
+        "Azure",
+        "Azure Active Directory",
+        "Cloud Security",
+        "Compliance Management",
+        "Identity and Access Management",
+        "Information Protection",
+        "Microsoft 365",
+        "Threat Protection",
+        "Security Management"]
+    },
+    {
+      
+      title: "Front-End Developer Capstone",
+      issuer: "Meta (via Coursera)",
+      date: "February 2023",
+      image: "Front-End Developer Capstone.png",
+      credentialLink: "https://www.coursera.org/account/accomplishments/verify/TLHDCNDWC3RD",
+      credentialId: "TLHDCNDWC3RD",
+      skills: [
+        "React.js",
+        "JavaScript",
+        "Front-End Web Development",
+        "UI/UX Design",
+        "Web Applications",
+        "Semantic Web",
+        "Web Accessibility (WCAG)",
+        "Git",
+        "Code Review",
+        "Data Validation",
+        "Usability Testing",
+        "Usability"
+      ]
+    },
+    {
+      title: "System Design Through Verilog",
+      issuer: "NPTEL | IIT Guwahati",
+      date: "September 2024",
+      image: "/System Design Through Verilog.png",
+      credentialLink: "https://archive.nptel.ac.in/content/noc/NOC24/SEM2/Ecertificates/108/noc24-ee94/Course/NPTEL24EE94S33920033102641986.pdf",
+      credentialId: "NPTEL24EE94S339200331",
+      skills: ["Verilog", "RTL Design", "Digital Systems", "HDL", "Simulation"]
+    },
+    {
+      title: "Databases and SQL for Data Science with Python",
+      issuer: "Coursera - IBM",
+      date: "June 2025",
+      image: "Databases and SQL for Data Science with Python.png",
+      credentialLink: "https://coursera.org/share/6ad1075f53b060bcd92f4cd320a71a5a", // update if you have a unique link
+      credentialId: "IBM-SQLDS-2025",
+      skills: ["SQL", "Databases", "Data Analysis", "Python"]
+    },
+    {
+      title: "Problem Solving through Programming in C",
+      issuer: "NPTEL",
+      date: "April 2024",
+      image: "Problem Solving through Programming in C.png",
+      credentialLink: "https://archive.nptel.ac.in/content/noc/NOC24/SEM1/Ecertificates/106/noc24-cs42/Course/NPTEL24CS42S55970014130411384.pdf",
+      credentialId: "NPTEL24CS42S559700141",
+      skills: ["C Programming", "Problem Solving", "Algorithms", "Logic Building"]
+    },
+    {
+      title: "Signals and Systems",
+      issuer: "NPTEL",
+      date: "June 2024",
+      image: "Signals and Systems.png",
+      credentialLink: "https://archive.nptel.ac.in/content/noc/NOC24/SEM1/Ecertificates/108/noc24-ee28/Course/NPTEL24EE28S65970111930411384.pdf",
+      credentialId: "NPTEL24EE28S65970111930411384",
+      skills: ["Signals", "Systems", "Linear Time-Invariant Systems", "Engineering Mathematics"]
+    },
+
+  ]
 
   const projects = [
     {
@@ -178,56 +280,56 @@ export default function Portfolio() {
   const galleryImages = [
     {
       id: 1,
-      src: "/placeholder.svg?height=400&width=400",
+      src: "/placeholder.svg",
       alt: "Research Lab Work",
       title: "TFET Research",
       description: "Working on semiconductor device modeling",
     },
     {
       id: 2,
-      src: "/placeholder.svg?height=400&width=400",
+      src: "/placeholder.svg",
       alt: "Conference Presentation",
       title: "IEEE Conference",
       description: "Presenting research findings",
     },
     {
       id: 3,
-      src: "/placeholder.svg?height=400&width=400",
+      src: "/placeholder.svg",
       alt: "Team Collaboration",
       title: "Team Project",
       description: "Collaborative development session",
     },
     {
       id: 4,
-      src: "/placeholder.svg?height=400&width=400",
+      src: "/placeholder.svg",
       alt: "Hackathon Victory",
       title: "Hackathon Win",
       description: "National hackathon finalist",
     },
     {
       id: 5,
-      src: "/placeholder.svg?height=400&width=400",
+      src: "/placeholder.svg",
       alt: "Lab Equipment",
       title: "VLSI Lab",
       description: "Advanced semiconductor testing",
     },
     {
       id: 6,
-      src: "/placeholder.svg?height=400&width=400",
+      src: "/placeholder.svg",
       alt: "Code Review",
       title: "Development",
       description: "Full-stack development work",
     },
     {
       id: 7,
-      src: "/placeholder.svg?height=400&width=400",
+      src: "/placeholder.svg",
       alt: "Research Paper",
       title: "Publication",
       description: "Research documentation",
     },
     {
       id: 8,
-      src: "/placeholder.svg?height=400&width=400",
+      src: "/placeholder.svg",
       alt: "Innovation",
       title: "Innovation",
       description: "Creative problem solving",
@@ -246,6 +348,7 @@ export default function Portfolio() {
     { id: "hero", label: "Home", icon: Home },
     { id: "about", label: "About", icon: User },
     { id: "skills", label: "Skills", icon: Code },
+    { id: "certifications", label: "Certifications", icon: Award }, // Add this line
     { id: "projects", label: "Projects", icon: Briefcase },
     { id: "experience", label: "Experience", icon: FileText },
     { id: "publications", label: "Publications", icon: FileText },
@@ -319,7 +422,7 @@ export default function Portfolio() {
                 transition={{ delay: 0.6 }}
                 className="space-y-6"
               >
-                <h1 className="text-7xl md:text-9xl font-black text-white tracking-tight leading-none">
+                <h1 className="text-5xl sm:text-7xl md:text-9xl font-black text-white tracking-tight leading-none">
                   Arijit Mondal
                 </h1>
                 <div className="flex items-center justify-center space-x-3 text-2xl text-gray-300">
@@ -422,7 +525,7 @@ export default function Portfolio() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1.8 + index * 0.15 }}
                   whileHover={{ scale: 1.15, y: -8 }}
-                  className="w-16 h-16 rounded-3xl bg-white/10 border border-white/20 backdrop-blur-xl flex items-center justify-center text-white hover:bg-white/20 transition-all duration-500 shadow-2xl"
+                  className="w-16 h-16 rounded-3xl bg-white/10 border border-white/40 backdrop-blur-xl flex items-center justify-center text-white hover:bg-white/20 transition-all duration-500 shadow-2xl"
                 >
                   <social.icon className="w-7 h-7" />
                 </motion.a>
@@ -450,14 +553,14 @@ export default function Portfolio() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-40 relative z-10">
-        <div className="max-w-8xl mx-auto px-8">
+      <section id="about" className="py-20 md:py-40 relative z-10">
+        <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
           <AnimatedSection className="text-center mb-24">
             <div className="inline-flex items-center space-x-3 bg-white/10 border border-white/20 rounded-full px-8 py-4 mb-12 backdrop-blur-xl shadow-2xl">
               <User className="w-6 h-6 text-white" />
               <span className="text-white font-bold text-lg">About Me</span>
             </div>
-            <h2 className="text-6xl md:text-8xl font-black mb-12 text-white leading-tight">
+            <h2 className="text-4xl sm:text-6xl md:text-8xl font-black mb-6 md:mb-12 text-white leading-tight">
               Crafting Digital{" "}
               <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Excellence</span>
             </h2>
@@ -555,7 +658,7 @@ export default function Portfolio() {
               <Code className="w-6 h-6 text-white" />
               <span className="text-white font-bold text-lg">Technical Skills</span>
             </div>
-            <h2 className="text-6xl md:text-8xl font-black mb-12 text-white leading-tight">
+            <h2 className="text-4xl sm:text-6xl md:text-8xl font-black mb-6 md:mb-12 text-white leading-tight">
               Technology{" "}
               <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Stack</span>
             </h2>
@@ -598,7 +701,7 @@ export default function Portfolio() {
               <Briefcase className="w-6 h-6 text-white" />
               <span className="text-white font-bold text-lg">Featured Projects</span>
             </div>
-            <h2 className="text-6xl md:text-8xl font-black mb-12 text-white leading-tight">
+            <h2 className="text-4xl sm:text-6xl md:text-8xl font-black mb-6 md:mb-12 text-white leading-tight">
               Innovation{" "}
               <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Showcase</span>
             </h2>
@@ -621,7 +724,7 @@ export default function Portfolio() {
               <Briefcase className="w-6 h-6 text-white" />
               <span className="text-white font-bold text-lg">Professional Experience</span>
             </div>
-            <h2 className="text-6xl md:text-8xl font-black mb-12 text-white leading-tight">
+            <h2 className="text-4xl sm:text-6xl md:text-8xl font-black mb-6 md:mb-12 text-white leading-tight">
               Career{" "}
               <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Journey</span>
             </h2>
@@ -685,7 +788,7 @@ export default function Portfolio() {
               <FileText className="w-6 h-6 text-white" />
               <span className="text-white font-bold text-lg">Research Publications</span>
             </div>
-            <h2 className="text-6xl md:text-8xl font-black mb-12 text-white leading-tight">
+            <h2 className="text-4xl sm:text-6xl md:text-8xl font-black mb-6 md:mb-12 text-white leading-tight">
               Academic{" "}
               <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                 Contributions
@@ -763,6 +866,90 @@ export default function Portfolio() {
         </div>
       </section>
 
+      {/* Certifications Section - updated to fix display issues */}
+      <section id="certifications" className="py-16 sm:py-24 md:py-40 relative z-10">
+        <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
+          <AnimatedSection className="text-center mb-10 md:mb-24">
+            <div className="inline-flex items-center space-x-2 sm:space-x-3 bg-white/10 border border-white/20 rounded-full px-3 py-1 sm:px-4 sm:py-2 md:px-8 md:py-4 mb-6 sm:mb-8 md:mb-12 backdrop-blur-xl shadow-2xl">
+              <Award className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" />
+              <span className="text-white font-bold text-xs sm:text-sm md:text-lg">Professional Certifications</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-black mb-4 sm:mb-6 md:mb-12 text-white leading-tight">
+              Learning{" "}
+              <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Credentials</span>
+            </h2>
+            <div className="w-16 sm:w-20 md:w-40 h-2 bg-gradient-to-r from-white to-gray-300 mx-auto rounded-full"></div>
+          </AnimatedSection>
+
+          <div className="flex flex-col gap-10 max-w-7xl mx-auto">
+            {/* Static content at the top */}
+            <UltraModernCard delay={1}>
+              <CardContent className="p-5 sm:p-6 md:p-12">
+                <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-center">
+                  <div className="w-full md:w-1/4 flex justify-center">
+                    <div className="w-20 h-20 md:w-28 md:h-28 rounded-3xl bg-gradient-to-br from-white/20 to-white/10 flex items-center justify-center shadow-2xl">
+                      <Award className="w-10 h-10 md:w-12 md:h-12 text-gray-800" />
+                    </div>
+                  </div>
+                  
+                  <div className="w-full md:w-3/4">
+                    <CardTitle className="text-2xl md:text-3xl text-center md:text-left text-gray-900 mb-2 md:mb-4 font-black">
+                      Continuous Professional Development
+                    </CardTitle>
+                    
+                    <p className="text-base md:text-xl text-gray-800 mb-4 font-light text-center md:text-left">
+                      I'm constantly expanding my knowledge through professional certifications from industry leaders.
+                    </p>
+                    
+                    <div className="flex flex-wrap gap-2 md:gap-3 justify-center md:justify-start">
+                      {Array.from(new Set(certifications.flatMap(cert => cert.skills || []))).slice(0, 8).map((skill) => (
+                        <Badge
+                          key={skill}
+                          variant="secondary"
+                          className="bg-gray-800 text-white border-0 py-1 px-2 md:py-2 md:px-4 text-xs md:text-base font-semibold shadow-lg"
+                        >
+                          {skill}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </UltraModernCard>
+            
+            {/* Horizontal scroll of certificates using the simpler component */}
+            <div className="relative h-[350px] sm:h-[400px] flex items-center">
+              {/* Use the simpler horizontal scroll component */}
+              <HorizontalCardScroll 
+                items={certifications.map(cert => (
+                  <CertificationCard key={cert.title} {...cert} />
+                ))}
+                itemWidth={280}
+                gap={20}
+              />
+            </div>
+            
+            {/* Certificate count indicator */}
+            <div className="flex items-center justify-center space-x-6">
+              <div className="bg-white/10 border border-white/20 rounded-2xl px-6 py-3 backdrop-blur-xl">
+                <div className="flex items-center space-x-3">
+                  <span className="text-gray-300 font-bold text-sm md:text-base">Total Certifications</span>
+                  <span className="text-xl md:text-3xl font-black text-white">{certifications.length}</span>
+                </div>
+              </div>
+              <motion.p 
+                className="text-gray-400 text-sm"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+              >
+                Drag or use arrows to explore →
+              </motion.p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Photo Gallery Section */}
       <section id="gallery" className="py-40 relative z-10">
         <div className="max-w-8xl mx-auto px-8">
@@ -771,7 +958,7 @@ export default function Portfolio() {
               <Eye className="w-6 h-6 text-white" />
               <span className="text-white font-bold text-lg">Photo Gallery</span>
             </div>
-            <h2 className="text-6xl md:text-8xl font-black mb-12 text-white leading-tight">
+            <h2 className="text-4xl sm:text-6xl md:text-8xl font-black mb-6 md:mb-12 text-white leading-tight">
               Journey{" "}
               <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Highlights</span>
             </h2>
@@ -792,9 +979,9 @@ export default function Portfolio() {
               />
               
               {/* Navigation buttons */}
-              <div className="absolute w-full flex justify-between top-1/2 transform -translate-y-1/2 px-4 z-10 pointer-events-none">
+              <div className="absolute w-full flex justify-between top-1/2 transform -translate-y-1/2 px-2 sm:px-4 z-10 pointer-events-none">
                 <motion.button
-                  className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/10 hover:bg-white/20 border border-white/40 backdrop-blur-xl flex items-center justify-center text-white transition-all duration-300 shadow-2xl pointer-events-auto"
+                  className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full bg-white/10 hover:bg-white/20 border border-white/40 backdrop-blur-xl flex items-center justify-center text-white transition-all duration-300 shadow-2xl pointer-events-auto"
                   onClick={() => galleryControlsRef.current?.prev()}
                   whileHover={{ scale: 1.1, x: -5 }}
                   whileTap={{ scale: 0.95 }}
@@ -802,11 +989,11 @@ export default function Portfolio() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.5 }}
                 >
-                  <ArrowRight className="w-6 h-6 md:w-8 md:h-8 rotate-180" />
+                  <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 rotate-180" />
                 </motion.button>
                 
                 <motion.button
-                  className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/10 hover:bg-white/20 border border-white/40 backdrop-blur-xl flex items-center justify-center text-white transition-all duration-300 shadow-2xl pointer-events-auto"
+                  className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full bg-white/10 hover:bg-white/20 border border-white/40 backdrop-blur-xl flex items-center justify-center text-white transition-all duration-300 shadow-2xl pointer-events-auto"
                   onClick={() => galleryControlsRef.current?.next()}
                   whileHover={{ scale: 1.1, x: 5 }}
                   whileTap={{ scale: 0.95 }}
@@ -814,7 +1001,7 @@ export default function Portfolio() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.5 }}
                 >
-                  <ArrowRight className="w-6 h-6 md:w-8 md:h-8" />
+                  <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8" />
                 </motion.button>
               </div>
             </div>
@@ -841,7 +1028,7 @@ export default function Portfolio() {
               <Mail className="w-6 h-6 text-white" />
               <span className="text-white font-bold text-lg">Get In Touch</span>
             </div>
-            <h2 className="text-6xl md:text-8xl font-black mb-12 text-white leading-tight">
+            <h2 className="text-4xl sm:text-6xl md:text-8xl font-black mb-6 md:mb-12 text-white leading-tight">
               Let's{" "}
               <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Connect</span>
             </h2>
