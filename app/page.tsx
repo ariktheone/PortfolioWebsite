@@ -71,13 +71,14 @@ export default function Portfolio() {
       skills: ["JavaScript", "Web Development", "Frontend Basics", "Programming Fundamentals"]
     },
     {
-      title: "TensorFlow Developer Certificate",
-      issuer: "Google",
-      date: "May 2024",
-      image: "/placeholder.svg",
-      credentialLink: "https://www.tensorflow.org/certificate",
-      credentialId: "TF12345",
-      skills: ["TensorFlow", "Keras", "Model Deployment"]
+      ttitle: "Introduction to Machine Learning",
+      issuer: "NPTEL (IIT Kharagpur)",
+      date: "April 2024", // Adjust if different
+      image: "Introduction to Machine Learning.png", // You can replace this with a custom or NPTEL badge/logo image
+      credentialLink: "https://drive.google.com/file/d/1WuSjXHS02u4GoyffFC_O7imKYoJFkmvZ/view",
+      credentialId: "NPTEL-ML-IITKGP-2025",
+      skills: ["Machine Learning", "Supervised Learning", "Unsupervised Learning", "Model Evaluation", "Python"]
+
     },
     {
       title: "Security, Compliance, and Identity Fundamentals",
@@ -121,6 +122,24 @@ export default function Portfolio() {
       ]
     },
     {
+      title: "ISWDP Level 1 Certification",
+      issuer: "IISc Bangalore & Synopsys (SARA)",
+      date: "March 15, 2025",
+      image: "ISWDP Level 1 Certification.png", // IISc Logo
+      credentialLink: "https://drive.google.com/file/d/1xdXid5M_4IVoTHhSOVgCaDLiHfXQKzn6/view",
+      credentialId: "ISWDP-L1-2025",
+      skills: [
+        "Semiconductor Fundamentals",
+        "VLSI Design",
+        "EDA Tools",
+        "Digital Electronics",
+        "Analog Circuits",
+        "Microelectronics Labs",
+        "Industry Interaction"
+      ]
+    },
+
+    {
       title: "System Design Through Verilog",
       issuer: "NPTEL | IIT Guwahati",
       date: "September 2024",
@@ -146,6 +165,28 @@ export default function Portfolio() {
       credentialLink: "https://archive.nptel.ac.in/content/noc/NOC24/SEM1/Ecertificates/106/noc24-cs42/Course/NPTEL24CS42S55970014130411384.pdf",
       credentialId: "NPTEL24CS42S559700141",
       skills: ["C Programming", "Problem Solving", "Algorithms", "Logic Building"]
+    },
+    {
+      title: "Introduction to Cybersecurity Tools & Cyberattacks",
+      issuer: "IBM (via Coursera)",
+      date: "June 2023", // Update if needed
+      image: "Introduction to Cybersecurity Tools & Cyberattacks.png", // IBM logo vector URL
+      credentialLink: "https://www.coursera.org/account/accomplishments/verify/3QJL6YRLJF3N",
+      credentialId: "3QJL6YRLJF3N",
+      skills: [
+        "Cybersecurity",
+        "Malware Protection",
+        "Cyber Attacks",
+        "Threat Detection",
+        "Network Security",
+        "Threat Management",
+        "Identity and Access Management",
+        "Incident Response",
+        "Computer Security Incident Management",
+        "Security Awareness",
+        "Multi-Factor Authentication",
+        "Authentications"
+      ]
     },
     {
       title: "Signals and Systems",
