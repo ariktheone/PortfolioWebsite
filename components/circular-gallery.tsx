@@ -337,9 +337,12 @@ class Media {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
       
-      // High resolution settings with 3:4 aspect ratio (portrait)
+      // Optimized resolution settings with 3:4 aspect ratio (portrait)
       const targetAspectRatio = 3 / 4; // Width:Height = 3:4
-      const maxSize = window.innerWidth < 768 ? 768 : 1536;
+      const isMobile = window.innerWidth < 768;
+      
+      // Much smaller, optimized sizes for faster loading
+      const maxSize = isMobile ? 400 : 600; // Reduced from 768/1536
       
       // Calculate final dimensions maintaining exact 3:4 ratio
       const targetWidth = maxSize;
@@ -398,8 +401,9 @@ class Media {
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     
-    // High resolution placeholder with exact 3:4 aspect ratio
-    const maxSize = window.innerWidth < 768 ? 768 : 1536;
+    // Optimized placeholder size with exact 3:4 aspect ratio
+    const isMobile = window.innerWidth < 768;
+    const maxSize = isMobile ? 400 : 600; // Reduced from 768/1536
     canvas.width = maxSize;
     canvas.height = Math.round(maxSize / (3/4)); // Height = Width * (4/3)
     
@@ -412,11 +416,11 @@ class Media {
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       
-      // Add subtle pattern
+      // Add subtle pattern (reduced density for performance)
       ctx.fillStyle = '#ffffff';
       ctx.globalAlpha = 0.1;
-      for (let i = 0; i < canvas.width; i += 40) {
-        for (let j = 0; j < canvas.height; j += 40) {
+      for (let i = 0; i < canvas.width; i += 60) { // Increased spacing from 40 to 60
+        for (let j = 0; j < canvas.height; j += 60) {
           ctx.fillRect(i, j, 2, 2);
         }
       }
@@ -424,7 +428,7 @@ class Media {
       
       // Add centered text
       ctx.fillStyle = '#ffffff';
-      ctx.font = `bold ${Math.round(canvas.width / 20)}px Arial`;
+      ctx.font = `bold ${Math.round(canvas.width / 25)}px Arial`; // Slightly smaller font
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText('Image Loading...', canvas.width / 2, canvas.height / 2);
@@ -745,32 +749,27 @@ class App {
   update() {
     if (this.isDestroyed) return;
     
-    const threshold = 0.001;
-    const needsUpdate = this.isDown || 
-      Math.abs(this.scroll.target - this.scroll.current) > threshold;
+    this.scroll.current = lerp(
+      this.scroll.current,
+      this.scroll.target,
+      this.scroll.ease
+    );
     
-    if (needsUpdate) {
-      this.scroll.current = lerp(
-        this.scroll.current,
-        this.scroll.target,
-        this.scroll.ease
-      );
-      
-      const direction = this.scroll.current > this.scroll.last ? "right" : "left";
-      
-      if (this.medias && this.viewport) {
-        const viewportWidth = this.viewport.width;
-        this.medias.forEach((media) => {
-          const isNearViewport = Math.abs(media.plane.position.x) < viewportWidth * 2;
-          if (isNearViewport || media.isLoaded) {
-            media.update(this.scroll, direction);
-          }
-        });
-      }
-      
-      this.renderer?.render({ scene: this.scene, camera: this.camera });
-      this.scroll.last = this.scroll.current;
+    const direction = this.scroll.current > this.scroll.last ? "right" : "left";
+    
+    if (this.medias && this.viewport) {
+      const viewportWidth = this.viewport.width;
+      this.medias.forEach((media) => {
+        const isNearViewport = Math.abs(media.plane.position.x) < viewportWidth * 2;
+        if (isNearViewport || media.isLoaded) {
+          media.update(this.scroll, direction);
+        }
+      });
     }
+    
+    // Always render to ensure images are visible even without scroll
+    this.renderer?.render({ scene: this.scene, camera: this.camera });
+    this.scroll.last = this.scroll.current;
     
     this.raf = window.requestAnimationFrame(this.update.bind(this));
   }
