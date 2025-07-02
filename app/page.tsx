@@ -41,7 +41,7 @@ import { AnimatedSection, CountUp } from "@/components/animated-sections"
 import Image from "next/image"
 import { Home } from "lucide-react"
 import { useState, useRef } from "react"
-import CircularGallery from "@/components/circular-gallery"
+import CircularGallery, { type GalleryControls } from "@/components/circular-gallery"
 import InfiniteScroll from "@/components/infinite-scroll"
 import CertificationCard from "@/components/certification-card"
 import HorizontalCardScroll from "@/components/horizontal-card-scroll"
@@ -71,14 +71,13 @@ export default function Portfolio() {
       skills: ["JavaScript", "Web Development", "Frontend Basics", "Programming Fundamentals"]
     },
     {
-      ttitle: "Introduction to Machine Learning",
+      title: "Introduction to Machine Learning",
       issuer: "NPTEL (IIT Kharagpur)",
       date: "April 2024", // Adjust if different
       image: "Introduction to Machine Learning.png", // You can replace this with a custom or NPTEL badge/logo image
       credentialLink: "https://drive.google.com/file/d/1WuSjXHS02u4GoyffFC_O7imKYoJFkmvZ/view",
       credentialId: "NPTEL-ML-IITKGP-2025",
       skills: ["Machine Learning", "Supervised Learning", "Unsupervised Learning", "Model Evaluation", "Python"]
-
     },
     {
       title: "Security, Compliance, and Identity Fundamentals",
@@ -99,7 +98,6 @@ export default function Portfolio() {
         "Security Management"]
     },
     {
-      
       title: "Front-End Developer Capstone",
       issuer: "Meta (via Coursera)",
       date: "February 2023",
@@ -138,7 +136,6 @@ export default function Portfolio() {
         "Industry Interaction"
       ]
     },
-
     {
       title: "System Design Through Verilog",
       issuer: "NPTEL | IIT Guwahati",
@@ -321,78 +318,153 @@ export default function Portfolio() {
   const galleryImages = [
     {
       id: 1,
-      src: "/placeholder.svg",
-      alt: "Research Lab Work",
-      title: "TFET Research",
-      description: "Working on semiconductor device modeling",
+      src: "/gallery/image1.webp",
+      alt: "Presenting Research at IEEE EDKCON 2024",
+      title: "IEEE EDKCON 2024",
+      description: "Presented my research at IEEE EDKCON 2024 held at Marriott Fairfield, Kolkata.",
     },
     {
       id: 2,
-      src: "/placeholder.svg",
-      alt: "Conference Presentation",
-      title: "IEEE Conference",
-      description: "Presenting research findings",
+      src: "/gallery/image2.webp",
+      alt: "Research Presentation at IEEE CALCON 2024",
+      title: "IEEE CALCON 2024",
+      description: "Shared key research findings at IEEE Calcutta Conference 2024 at Jadavpur University.",
     },
     {
       id: 3,
-      src: "/placeholder.svg",
-      alt: "Team Collaboration",
-      title: "Team Project",
-      description: "Collaborative development session",
+      src: "/gallery/image3.webp",
+      alt: "Academic Excellence Award - 1st Year B.Tech",
+      title: "Academic Award",
+      description: "Received academic excellence award for top performance in 1st year of B.Tech.",
     },
     {
       id: 4,
-      src: "/placeholder.svg",
-      alt: "Hackathon Victory",
-      title: "Hackathon Win",
-      description: "National hackathon finalist",
+      src: "/gallery/image4.webp",
+      alt: "Hackathon Participation - Diversion 2K24",
+      title: "Diversion 2K24",
+      description: "Participated in Diversion 2K24 International Hackathon at IEM Kolkata.",
     },
     {
       id: 5,
-      src: "/placeholder.svg",
-      alt: "Lab Equipment",
-      title: "VLSI Lab",
-      description: "Advanced semiconductor testing",
+      src: "/gallery/image5.webp",
+      alt: "Tech-Fest Participation - INNOVATION 2K23",
+      title: "Innovation 2K23",
+      description: "Engaged in technical events at Innovation 2K23 Tech-Fest at IEM Kolkata.",
     },
     {
       id: 6,
-      src: "/placeholder.svg",
-      alt: "Code Review",
-      title: "Development",
-      description: "Full-stack development work",
+      src: "/gallery/image6.webp",
+      alt: "Hackathon Induction - Diversion 2K24",
+      title: "Hackathon Induction",
+      description: "Attended the induction session of Diversion 2K24 International Hackathon at IEM.",
     },
     {
       id: 7,
-      src: "/placeholder.svg",
-      alt: "Research Paper",
-      title: "Publication",
-      description: "Research documentation",
+      src: "/gallery/image7.webp",
+      alt: "Workshop Participation - Smart Maker Fest 2K23",
+      title: "SMF 2K23",
+      description: "Took part in Smart Maker Fest 2K23 hosted at IEM Kolkata.",
     },
     {
       id: 8,
-      src: "/placeholder.svg",
-      alt: "Innovation",
-      title: "Innovation",
-      description: "Creative problem solving",
+      src: "/gallery/image8.webp",
+      alt: "Quiz Finale - SyTron 2K22",
+      title: "SyTron 2K22",
+      description: "Finalist in the SyTron 2K22 Quiz event held at IEM Kolkata.",
+    },
+    {
+      id: 9,
+      src: "/gallery/image9.webp",
+      alt: "Academic Award from DRM Asansol",
+      title: "DRM Award",
+      description: "Received academic excellence award from DRM Asansol for 10th board results.",
+    },
+    {
+      id: 10,
+      src: "/gallery/image10.webp",
+      alt: "Open Discussion - Elevate 2K24",
+      title: "Elevate Forum",
+      description: "Joined Elevate 2K24 open discussion forum organized by IEEE at IEM Kolkata.",
+    },
+    {
+      id: 11,
+      src: "/gallery/image11.webp",
+      alt: "Participation in IEEE Flagship Event",
+      title: "IEEE Elevate",
+      description: "Contributed to the flagship IEEE Elevate 2K24 event at IEM Kolkata.",
+    },
+    {
+      id: 12,
+      src: "/gallery/image12.webp",
+      alt: "Academic Recognition by DRM Asansol",
+      title: "10th Board Award",
+      description: "Honored for academic performance in 10th standard by DRM Asansol.",
+    },
+    {
+      id: 13,
+      src: "/gallery/image13.webp",
+      alt: "IEEE Conference Presentation at JU",
+      title: "JU Presentation",
+      description: "Delivered research presentation at IEEE CALCON 2024, Jadavpur University.",
+    },
+    {
+      id: 14,
+      src: "/gallery/image14.webp",
+      alt: "Robo Race Finalist - SyTron 2K23",
+      title: "SyTron 2K23",
+      description: "Participated in the Robo Race Finals at SyTron 2K23, IEM Kolkata.",
+    },
+    {
+      id: 15,
+      src: "/gallery/image15.webp",
+      alt: "Award at Smart Maker Fest 2K23",
+      title: "SMF Award",
+      description: "Received appreciation award for exceptional work at SMF 2K23, IEM Kolkata.",
+    },
+    {
+      id: 16,
+      src: "/gallery/image16.webp",
+      alt: "INNOVATION 2K23 Scrapyard",
+      title: "INNOVATION 2K23 Scrapyard",
+      description: "Participated in INNOVATION 2K23 Scrapyard event at IEM Kolkata.",
+    },
+    {
+      id: 17,
+      src: "/gallery/image17.webp",
+      alt: "2nd Prize at Scrapyard",
+      title: "2nd Prize At Scrapyard",
+      description: "Won 2nd prize at Scrapyard event during INNOVATION 2K23 at IEM Kolkata.",
     },
   ]
 
+  // IMPROVED SCROLL FUNCTION WITH PROPER OFFSET
   const scrollToSection = (sectionId: string) => {
     if (sectionId === "hero") {
       window.scrollTo({ top: 0, behavior: "smooth" })
     } else {
-      document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" })
+      const element = document.getElementById(sectionId)
+      if (element) {
+        const navbarHeight = 80 // Navbar height
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset
+        const offsetPosition = elementPosition - navbarHeight
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        })
+      }
     }
   }
 
+  // FIXED MENU ITEMS ORDER TO MATCH PAGE SECTIONS
   const menuItems = [
     { id: "hero", label: "Home", icon: Home },
     { id: "about", label: "About", icon: User },
     { id: "skills", label: "Skills", icon: Code },
-    { id: "certifications", label: "Certifications", icon: Award }, // Add this line
     { id: "projects", label: "Projects", icon: Briefcase },
-    { id: "experience", label: "Experience", icon: FileText },
+    { id: "experience", label: "Experience", icon: Briefcase },
     { id: "publications", label: "Publications", icon: FileText },
+    { id: "certifications", label: "Certifications", icon: Award },
     { id: "gallery", label: "Gallery", icon: Eye },
     { id: "contact", label: "Contact", icon: Mail },
   ]
@@ -400,25 +472,26 @@ export default function Portfolio() {
   const [currentGalleryIndex, setCurrentGalleryIndex] = useState(0)
   const galleryControlsRef = useRef<GalleryControls | null>(null)
 
-  interface GalleryControls {
-    next: () => void;
-    prev: () => void;
-  }
-
   const handleGalleryInit = (controls: GalleryControls) => {
     galleryControlsRef.current = controls
   }
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-x-hidden">
+      {/* Ultra Modern Background */}
       <UltraModernBackground />
+      
+      {/* Fixed Navbar with correct menu order */}
       <PremiumNavbar scrollToSection={scrollToSection} menuItems={menuItems} />
 
-      {/* Ultra-Modern Hero Section */}
-      <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-visible mt-8 pb-24">
+      {/* Hero Section with proper scroll margin */}
+      <section
+        id="hero"
+        className="min-h-screen flex items-center justify-center relative overflow-visible pt-20 pb-24 scroll-mt-20"
+      >
         <motion.div style={{ y, opacity }} className="absolute inset-0 z-0" />
 
-        <div className="max-w-8xl mx-auto px-8 text-center z-20 relative mt-9">
+        <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8 text-center z-20 relative mt-9">
           <motion.div
             initial={{ opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}
@@ -433,7 +506,6 @@ export default function Portfolio() {
               className="relative mx-auto w-40 h-40 mb-12 mt-9"
             >
               <div className="w-full h-full rounded-full bg-gradient-to-br from-white via-gray-100 to-gray-200 flex items-center justify-center shadow-2xl mt-8">
-                {/*<span className="text-black text-5xl font-black tracking-tight">AM</span>*/}
                 <img
                   src="/image.png"
                   alt="AM Logo"
@@ -463,7 +535,7 @@ export default function Portfolio() {
                 transition={{ delay: 0.6 }}
                 className="space-y-6"
               >
-                <h1 className="text-5xl sm:text-7xl md:text-9xl font-black text-white tracking-tight leading-none">
+                <h1 className="text-4xl sm:text-6xl md:text-8xl font-black text-white tracking-tight leading-none">
                   Arijit Mondal
                 </h1>
                 <div className="flex items-center justify-center space-x-3 text-2xl text-gray-300">
@@ -479,7 +551,7 @@ export default function Portfolio() {
                 transition={{ delay: 0.8 }}
                 className="space-y-6"
               >
-                <p className="text-3xl md:text-4xl text-gray-300 font-light max-w-5xl mx-auto leading-relaxed">
+                <p className="text-2xl md:text-4xl text-gray-300 font-light max-w-3xl md:max-w-5xl mx-auto leading-relaxed">
                   AI/ML Researcher • Full-Stack Developer • Semiconductor Specialist
                 </p>
                 <p className="text-xl text-gray-400 max-w-4xl mx-auto leading-relaxed font-light">
@@ -539,9 +611,17 @@ export default function Portfolio() {
                 variant="outline"
                 size="lg"
                 className="border-white/40 text-black hover:bg-white/10 px-10 py-6 rounded-3xl transition-all duration-500 backdrop-blur-xl font-bold text-lg shadow-2xl"
+                asChild
               >
-                <Download className="w-6 h-6 mr-3" />
-                Download Resume
+                <a 
+                  href="/resume.pdf" 
+                  download="Arijit_Mondal_Resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Download className="w-6 h-6 mr-3" />
+                  Download Resume
+                </a>
               </Button>
             </motion.div>
 
@@ -580,12 +660,7 @@ export default function Portfolio() {
           animate={{ y: [0, 15, 0] }}
           transition={{ repeat: Number.POSITIVE_INFINITY, duration: 3 }}
           className="absolute bottom-3 transform -translate-x-1/2 z-20 cursor-pointer"
-          onClick={() => {
-            const nextSection = document.getElementById("about")
-            if (nextSection) {
-              nextSection.scrollIntoView({ behavior: "smooth" })
-            }
-          }}
+          onClick={() => scrollToSection("about")}
         >
           <div className="w-16 h-16 rounded-full bg-white/10 border border-white/20 backdrop-blur-xl flex items-center justify-center shadow-2xl">
             <ChevronDown className="w-7 h-7 text-white" />
@@ -594,24 +669,24 @@ export default function Portfolio() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 md:py-40 relative z-10">
+      <section id="about" className="py-16 sm:py-24 md:py-40 relative z-10 scroll-mt-20">
         <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
-          <AnimatedSection className="text-center mb-24">
-            <div className="inline-flex items-center space-x-3 bg-white/10 border border-white/20 rounded-full px-8 py-4 mb-12 backdrop-blur-xl shadow-2xl">
-              <User className="w-6 h-6 text-white" />
-              <span className="text-white font-bold text-lg">About Me</span>
+          <AnimatedSection className="text-center mb-10 md:mb-24">
+            <div className="inline-flex items-center space-x-2 sm:space-x-3 bg-white/10 border border-white/20 rounded-full px-3 py-1 sm:px-4 sm:py-2 md:px-8 md:py-4 mb-6 sm:mb-8 md:mb-12 backdrop-blur-xl shadow-2xl">
+              <User className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" />
+              <span className="text-white font-bold text-xs sm:text-sm md:text-lg">About Me</span>
             </div>
-            <h2 className="text-4xl sm:text-6xl md:text-8xl font-black mb-6 md:mb-12 text-white leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-black mb-4 sm:mb-6 md:mb-12 text-white leading-tight">
               Crafting Digital{" "}
               <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Excellence</span>
             </h2>
-            <div className="w-40 h-2 bg-gradient-to-r from-gray-700 to-white mx-auto rounded-full"></div>
+            <div className="w-16 sm:w-20 md:w-40 h-2 bg-gradient-to-r from-white to-gray-300 mx-auto rounded-full"></div>
           </AnimatedSection>
 
           <div className="max-w-7xl mx-auto">
             <UltraModernCard delay={2}>
-              <CardContent className="p-16">
-                <div className="grid lg:grid-cols-2 gap-16">
+              <CardContent className="p-6 sm:p-10 md:p-16">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16">
                   <div className="space-y-10">
                     <div>
                       <h3 className="text-4xl font-black text-gray-900 mb-8 flex items-center">
@@ -692,21 +767,21 @@ export default function Portfolio() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-40 relative z-10">
-        <div className="max-w-8xl mx-auto px-8">
-          <AnimatedSection className="text-center mb-24">
-            <div className="inline-flex items-center space-x-3 bg-white/10 border border-white/20 rounded-full px-8 py-4 mb-12 backdrop-blur-xl shadow-2xl">
-              <Code className="w-6 h-6 text-white" />
-              <span className="text-white font-bold text-lg">Technical Skills</span>
+      <section id="skills" className="py-16 sm:py-24 md:py-40 relative z-10 scroll-mt-20">
+        <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
+          <AnimatedSection className="text-center mb-10 md:mb-24">
+            <div className="inline-flex items-center space-x-2 sm:space-x-3 bg-white/10 border border-white/20 rounded-full px-3 py-1 sm:px-4 sm:py-2 md:px-8 md:py-4 mb-6 sm:mb-8 md:mb-12 backdrop-blur-xl shadow-2xl">
+              <Code className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" />
+              <span className="text-white font-bold text-xs sm:text-sm md:text-lg">Technical Skills</span>
             </div>
-            <h2 className="text-4xl sm:text-6xl md:text-8xl font-black mb-6 md:mb-12 text-white leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-black mb-4 sm:mb-6 md:mb-12 text-white leading-tight">
               Technology{" "}
               <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Stack</span>
             </h2>
-            <div className="w-40 h-2 bg-gradient-to-r from-white to-gray-300 mx-auto rounded-full"></div>
+            <div className="w-16 sm:w-20 md:w-40 h-2 bg-gradient-to-r from-white to-gray-300 mx-auto rounded-full"></div>
           </AnimatedSection>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
             {Object.entries(skills).map(([category, skillList], index) => (
               <SkillCard
                 key={category}
@@ -735,21 +810,21 @@ export default function Portfolio() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-40 relative z-10">
-        <div className="max-w-8xl mx-auto px-8">
-          <AnimatedSection className="text-center mb-24">
-            <div className="inline-flex items-center space-x-3 bg-white/10 border border-white/20 rounded-full px-8 py-4 mb-12 backdrop-blur-xl shadow-2xl">
-              <Briefcase className="w-6 h-6 text-white" />
-              <span className="text-white font-bold text-lg">Featured Projects</span>
+      <section id="projects" className="py-16 sm:py-24 md:py-40 relative z-10 scroll-mt-20">
+        <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
+          <AnimatedSection className="text-center mb-10 md:mb-24">
+            <div className="inline-flex items-center space-x-2 sm:space-x-3 bg-white/10 border border-white/20 rounded-full px-3 py-1 sm:px-4 sm:py-2 md:px-8 md:py-4 mb-6 sm:mb-8 md:mb-12 backdrop-blur-xl shadow-2xl">
+              <Briefcase className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" />
+              <span className="text-white font-bold text-xs sm:text-sm md:text-lg">Featured Projects</span>
             </div>
-            <h2 className="text-4xl sm:text-6xl md:text-8xl font-black mb-6 md:mb-12 text-white leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-black mb-4 sm:mb-6 md:mb-12 text-white leading-tight">
               Innovation{" "}
               <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Showcase</span>
             </h2>
-            <div className="w-40 h-2 bg-gradient-to-r from-white to-gray-300 mx-auto rounded-full"></div>
+            <div className="w-16 sm:w-20 md:w-40 h-2 bg-gradient-to-r from-white to-gray-300 mx-auto rounded-full"></div>
           </AnimatedSection>
 
-          <div className="grid md:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
             {projects.map((project, index) => (
               <ProjectCard key={project.title} {...project} delay={index} />
             ))}
@@ -758,21 +833,21 @@ export default function Portfolio() {
       </section>
 
       {/* Experience Section */}
-      <section id="experience" className="py-40 relative z-10">
-        <div className="max-w-8xl mx-auto px-8">
-          <AnimatedSection className="text-center mb-24">
-            <div className="inline-flex items-center space-x-3 bg-white/10 border border-white/20 rounded-full px-8 py-4 mb-12 backdrop-blur-xl shadow-2xl">
-              <Briefcase className="w-6 h-6 text-white" />
-              <span className="text-white font-bold text-lg">Professional Experience</span>
+      <section id="experience" className="py-16 sm:py-24 md:py-40 relative z-10 scroll-mt-20">
+        <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
+          <AnimatedSection className="text-center mb-10 md:mb-24">
+            <div className="inline-flex items-center space-x-2 sm:space-x-3 bg-white/10 border border-white/20 rounded-full px-3 py-1 sm:px-4 sm:py-2 md:px-8 md:py-4 mb-6 sm:mb-8 md:mb-12 backdrop-blur-xl shadow-2xl">
+              <Briefcase className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" />
+              <span className="text-white font-bold text-xs sm:text-sm md:text-lg">Professional Experience</span>
             </div>
-            <h2 className="text-4xl sm:text-6xl md:text-8xl font-black mb-6 md:mb-12 text-white leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-black mb-4 sm:mb-6 md:mb-12 text-white leading-tight">
               Career{" "}
               <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Journey</span>
             </h2>
-            <div className="w-40 h-2 bg-gradient-to-r from-white to-gray-800 mx-auto rounded-full"></div>
+            <div className="w-16 sm:w-20 md:w-40 h-2 bg-gradient-to-r from-white to-gray-800 mx-auto rounded-full"></div>
           </AnimatedSection>
 
-          <div className="max-w-6xl mx-auto space-y-10">
+          <div className="max-w-6xl mx-auto space-y-8 md:space-y-10">
             {experiences.map((exp, index) => (
               <UltraModernCard key={exp.title} delay={index}>
                 <CardContent className="p-12">
@@ -822,23 +897,23 @@ export default function Portfolio() {
       </section>
 
       {/* Publications Section */}
-      <section id="publications" className="py-40 relative z-10">
-        <div className="max-w-8xl mx-auto px-8">
-          <AnimatedSection className="text-center mb-24">
-            <div className="inline-flex items-center space-x-3 bg-white/10 border border-white/20 rounded-full px-8 py-4 mb-12 backdrop-blur-xl shadow-2xl">
-              <FileText className="w-6 h-6 text-white" />
-              <span className="text-white font-bold text-lg">Research Publications</span>
+      <section id="publications" className="py-16 sm:py-24 md:py-40 relative z-10 scroll-mt-20">
+        <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
+          <AnimatedSection className="text-center mb-10 md:mb-24">
+            <div className="inline-flex items-center space-x-2 sm:space-x-3 bg-white/10 border border-white/20 rounded-full px-3 py-1 sm:px-4 sm:py-2 md:px-8 md:py-4 mb-6 sm:mb-8 md:mb-12 backdrop-blur-xl shadow-2xl">
+              <FileText className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" />
+              <span className="text-white font-bold text-xs sm:text-sm md:text-lg">Research Publications</span>
             </div>
-            <h2 className="text-4xl sm:text-6xl md:text-8xl font-black mb-6 md:mb-12 text-white leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-black mb-4 sm:mb-6 md:mb-12 text-white leading-tight">
               Academic{" "}
               <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                 Contributions
               </span>
             </h2>
-            <div className="w-40 h-2 bg-gradient-to-r from-white to-gray-300 mx-auto rounded-full"></div>
+            <div className="w-16 sm:w-20 md:w-40 h-2 bg-gradient-to-r from-white to-gray-300 mx-auto rounded-full"></div>
           </AnimatedSection>
 
-          <div className="max-w-6xl mx-auto space-y-8">
+          <div className="max-w-6xl mx-auto space-y-6 md:space-y-8">
             {publications.map((pub, index) => (
               <UltraModernCard key={pub.title} delay={index}>
                 <CardContent className="p-12">
@@ -907,8 +982,8 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* Certifications Section - updated to fix display issues */}
-      <section id="certifications" className="py-16 sm:py-24 md:py-40 relative z-10">
+      {/* Certifications Section */}
+      <section id="certifications" className="py-10 sm:py-16 md:py-24 lg:py-40 relative z-10 scroll-mt-20">
         <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
           <AnimatedSection className="text-center mb-10 md:mb-24">
             <div className="inline-flex items-center space-x-2 sm:space-x-3 bg-white/10 border border-white/20 rounded-full px-3 py-1 sm:px-4 sm:py-2 md:px-8 md:py-4 mb-6 sm:mb-8 md:mb-12 backdrop-blur-xl shadow-2xl">
@@ -922,7 +997,7 @@ export default function Portfolio() {
             <div className="w-16 sm:w-20 md:w-40 h-2 bg-gradient-to-r from-white to-gray-300 mx-auto rounded-full"></div>
           </AnimatedSection>
 
-          <div className="flex flex-col gap-10 max-w-7xl mx-auto">
+          <div className="flex flex-col gap-6 md:gap-10 max-w-7xl mx-auto">
             {/* Static content at the top */}
             <UltraModernCard delay={1}>
               <CardContent className="p-5 sm:p-6 md:p-12">
@@ -959,7 +1034,7 @@ export default function Portfolio() {
             </UltraModernCard>
             
             {/* Horizontal scroll of certificates using the simpler component */}
-            <div className="relative h-[350px] sm:h-[400px] flex items-center">
+            <div className="relative h-[320px] sm:h-[350px] md:h-[400px] flex items-center">
               {/* Use the simpler horizontal scroll component */}
               <HorizontalCardScroll 
                 items={certifications.map(cert => (
@@ -991,96 +1066,89 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* Photo Gallery Section */}
-      <section id="gallery" className="py-40 relative z-10">
-        <div className="max-w-8xl mx-auto px-8">
-          <AnimatedSection className="text-center mb-24">
-            <div className="inline-flex items-center space-x-3 bg-white/10 border border-white/20 rounded-full px-8 py-4 mb-12 backdrop-blur-xl shadow-2xl">
-              <Eye className="w-6 h-6 text-white" />
-              <span className="text-white font-bold text-lg">Photo Gallery</span>
+      {/* Gallery Section */}
+      <section id="gallery" className="py-16 sm:py-24 md:py-40 relative z-10 scroll-mt-20">
+        <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
+          <AnimatedSection className="text-center mb-10 md:mb-24">
+            <div className="inline-flex items-center space-x-2 sm:space-x-3 bg-white/10 border border-white/20 rounded-full px-3 py-1 sm:px-4 sm:py-2 md:px-8 md:py-4 mb-6 sm:mb-8 md:mb-12 backdrop-blur-xl shadow-2xl">
+              <Eye className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" />
+              <span className="text-white font-bold text-xs sm:text-sm md:text-lg">Photo Gallery</span>
             </div>
-            <h2 className="text-4xl sm:text-6xl md:text-8xl font-black mb-6 md:mb-12 text-white leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-black mb-4 sm:mb-6 md:mb-12 text-white leading-tight">
               Journey{" "}
               <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Highlights</span>
             </h2>
-            <div className="w-40 h-2 bg-gradient-to-r from-white to-gray-300 mx-auto rounded-full"></div>
+            <div className="w-16 sm:w-20 md:w-40 h-2 bg-gradient-to-r from-white to-gray-300 mx-auto rounded-full"></div>
           </AnimatedSection>
 
           <div className="relative max-w-6xl mx-auto">
-            {/* WebGL-based circular gallery with navigation controls */}
-            <div className="h-[700px] relative">
-              {/* Gallery component with initialized callback */}
+            <div className="h-[320px] sm:h-[400px] md:h-[500px] relative bg-gradient-to-b from-white/5 to-transparent rounded-3xl border border-white/10 backdrop-blur-sm overflow-hidden shadow-2xl">
               <CircularGallery 
-                items={galleryImages}
-                bend={3}
+                items={galleryImages.map(item => ({
+                  image: item.src,
+                  text: item.title
+                }))}
+                bend={1.5} // Reduced bend for better performance
                 textColor="#ffffff"
-                borderRadius={0.05}
-                font="bold 30px Figtree"
+                borderRadius={0.03} // Reduced border radius for performance
+                font="bold 20px Figtree" // Smaller font for better performance
                 onInitialized={handleGalleryInit}
               />
               
-              {/* Navigation buttons */}
-              <div className="absolute w-full flex justify-between top-1/2 transform -translate-y-1/2 px-2 sm:px-4 z-10 pointer-events-none">
-                <motion.button
-                  className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full bg-white/10 hover:bg-white/20 border border-white/40 backdrop-blur-xl flex items-center justify-center text-white transition-all duration-300 shadow-2xl pointer-events-auto"
+              {/* Simplified navigation buttons */}
+              <div className="absolute inset-0 flex items-center justify-between px-4 md:px-8 z-20 pointer-events-none">
+                <button
+                  className="w-12 h-12 rounded-full bg-white/20 hover:bg-white/30 border border-white/30 backdrop-blur-xl flex items-center justify-center text-white transition-colors duration-200 shadow-xl pointer-events-auto"
                   onClick={() => galleryControlsRef.current?.prev()}
-                  whileHover={{ scale: 1.1, x: -5 }}
-                  whileTap={{ scale: 0.95 }}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.5 }}
                 >
-                  <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 rotate-180" />
-                </motion.button>
+                  <ArrowRight className="w-5 h-5 rotate-180" />
+                </button>
                 
-                <motion.button
-                  className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-full bg-white/10 hover:bg-white/20 border border-white/40 backdrop-blur-xl flex items-center justify-center text-white transition-all duration-300 shadow-2xl pointer-events-auto"
+                <button
+                  className="w-12 h-12 rounded-full bg-white/20 hover:bg-white/30 border border-white/30 backdrop-blur-xl flex items-center justify-center text-white transition-colors duration-200 shadow-xl pointer-events-auto"
                   onClick={() => galleryControlsRef.current?.next()}
-                  whileHover={{ scale: 1.1, x: 5 }}
-                  whileTap={{ scale: 0.95 }}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.5 }}
                 >
-                  <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8" />
-                </motion.button>
+                  <ArrowRight className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Simplified indicators */}
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
+                {galleryImages.map((_, index) => (
+                  <div 
+                    key={index}
+                    className="w-1.5 h-1.5 rounded-full bg-white/40"
+                  />
+                ))}
               </div>
             </div>
-            
-            {/* Instructions */}
-            <motion.div
-              className="text-center mt-8 text-gray-400"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              viewport={{ once: true }}
-            >
-              <p>Use navigation buttons or drag to explore the gallery</p>
-            </motion.div>
+            <div className="text-center mt-4 sm:mt-6">
+              <p className="text-gray-300 text-sm sm:text-base">Drag or use arrows to navigate</p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-40 relative z-10">
-        <div className="max-w-8xl mx-auto px-8">
-          <AnimatedSection className="text-center mb-24">
-            <div className="inline-flex items-center space-x-3 bg-white/10 border border-white/20 rounded-full px-8 py-4 mb-12 backdrop-blur-xl shadow-2xl">
-              <Mail className="w-6 h-6 text-white" />
-              <span className="text-white font-bold text-lg">Get In Touch</span>
+      <section id="contact" className="py-16 sm:py-24 md:py-40 relative z-10 scroll-mt-20">
+        <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
+          <AnimatedSection className="text-center mb-10 md:mb-24">
+            <div className="inline-flex items-center space-x-2 sm:space-x-3 bg-white/10 border border-white/20 rounded-full px-3 py-1 sm:px-4 sm:py-2 md:px-8 md:py-4 mb-6 sm:mb-8 md:mb-12 backdrop-blur-xl shadow-2xl">
+              <Mail className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" />
+              <span className="text-white font-bold text-xs sm:text-sm md:text-lg">Get In Touch</span>
             </div>
-            <h2 className="text-4xl sm:text-6xl md:text-8xl font-black mb-6 md:mb-12 text-white leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-black mb-4 sm:mb-6 md:mb-12 text-white leading-tight">
               Let's{" "}
               <span className="bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">Connect</span>
             </h2>
-            <div className="w-40 h-2 bg-gradient-to-r from-white to-gray-300 mx-auto rounded-full mb-12"></div>
+            <div className="w-16 sm:w-20 md:w-40 h-2 bg-gradient-to-r from-white to-gray-300 mx-auto rounded-full mb-12"></div>
             <p className="text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed font-light">
               I'm always open to discussing new opportunities, research collaborations, and innovative projects that
               push the boundaries of technology.
             </p>
           </AnimatedSection>
 
-          <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16">
             <UltraModernCard delay={1}>
               <CardContent className="p-12">
                 <CardTitle className="text-4xl text-gray-900 mb-12 flex items-center font-black">
@@ -1197,10 +1265,10 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* Premium Footer */}
-      <footer className="py-16 bg-black/60 border-t border-white/10 relative z-10 backdrop-blur-2xl">
-        <div className="max-w-8xl mx-auto px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
+      {/* Footer */}
+      <footer className="py-10 sm:py-16 bg-black/60 border-t border-white/10 relative z-10 backdrop-blur-2xl">
+        <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center space-x-6 mb-6 md:mb-0">
               <div className="w-14 h-14 rounded-3xl bg-gradient-to-br from-white via-gray-100 to-gray-200 flex items-center justify-center shadow-2xl">
                 <span className="text-black font-black text-lg">AM</span>

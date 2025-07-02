@@ -2,103 +2,182 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, Home, User, Code, Briefcase, FileText, Mail, Award } from "lucide-react"
+import { Menu, X, Home, User, Code, Briefcase, FileText, Mail, Award, Eye } from "lucide-react"
 
 interface NavbarProps {
   scrollToSection: (sectionId: string) => void
+  menuItems?: Array<{
+    id: string
+    label: string
+    icon: any
+  }>
 }
 
-export default function PremiumNavbar({ scrollToSection }: NavbarProps) {
+export default function PremiumNavbar({ scrollToSection, menuItems: propMenuItems }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState("hero")
 
-  const menuItems = [
+  // Fixed order to match the actual page sections
+  const defaultMenuItems = [
     { id: "hero", label: "Home", icon: Home },
     { id: "about", label: "About", icon: User },
     { id: "skills", label: "Skills", icon: Code },
-    
     { id: "projects", label: "Projects", icon: Briefcase },
-    { id: "experience", label: "Experience", icon: FileText },
+    { id: "experience", label: "Experience", icon: Briefcase },
     { id: "publications", label: "Publications", icon: FileText },
     { id: "certifications", label: "Certifications", icon: Award },
-    { id: "gallery", label: "Gallery", icon: User }, // Using User as placeholder, you can change to Eye if imported
+    { id: "gallery", label: "Gallery", icon: Eye },
     { id: "contact", label: "Contact", icon: Mail },
   ]
 
+  const menuItems = propMenuItems || defaultMenuItems
+
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
+      // Don't update scroll state if menu is open
+      if (isMenuOpen) return
+      
+      const scrollTop = window.scrollY
+      setScrolled(scrollTop > 50)
 
+      // Improved section detection with proper offset for navbar height
       const sections = menuItems.map((item) => item.id)
-      const currentSection = sections.find((section) => {
+      let currentSection = "hero"
+
+      for (const section of sections) {
         const element = document.getElementById(section)
         if (element) {
           const rect = element.getBoundingClientRect()
-          return rect.top <= 100 && rect.bottom >= 100
+          const navbarHeight = 80 // Account for navbar height
+          const offset = navbarHeight + 50 // Additional offset for better detection
+          
+          if (rect.top <= offset && rect.bottom >= offset) {
+            currentSection = section
+          }
         }
-        return false
-      })
+      }
 
-      if (currentSection) {
-        setActiveSection(currentSection)
+      setActiveSection(currentSection)
+    }
+
+    // Throttle scroll event for better performance
+    let ticking = false
+    const throttledHandleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll()
+          ticking = false
+        })
+        ticking = true
       }
     }
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("scroll", throttledHandleScroll, { passive: true })
+    handleScroll() // Initial call
+
+    return () => window.removeEventListener("scroll", throttledHandleScroll)
+  }, [menuItems, isMenuOpen])
 
   const handleMenuClick = (sectionId: string) => {
-    scrollToSection(sectionId === "hero" ? "hero" : sectionId)
+    scrollToSection(sectionId)
     setIsMenuOpen(false)
   }
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isMenuOpen && event.target instanceof Element) {
+        const navbar = document.querySelector('[data-navbar]')
+        const mobileMenu = document.querySelector('[data-mobile-menu]')
+        
+        if (navbar && mobileMenu && 
+            !navbar.contains(event.target) && 
+            !mobileMenu.contains(event.target)) {
+          setIsMenuOpen(false)
+        }
+      }
+    }
+
+    if (isMenuOpen) {
+      document.addEventListener('click', handleClickOutside, { capture: true })
+    }
+    
+    return () => document.removeEventListener('click', handleClickOutside, { capture: true })
+  }, [isMenuOpen])
+
+  // Prevent body scroll when mobile menu is open - SIMPLIFIED
+  useEffect(() => {
+    if (isMenuOpen) {
+      const scrollY = window.scrollY
+      
+      // Apply styles to prevent background scroll
+      document.body.style.position = 'fixed'
+      document.body.style.top = `-${scrollY}px`
+      document.body.style.width = '100%'
+      document.body.style.overflow = 'hidden'
+      
+      return () => {
+        // Restore original styles
+        document.body.style.position = ''
+        document.body.style.top = ''
+        document.body.style.width = ''
+        document.body.style.overflow = ''
+        
+        // Restore scroll position
+        window.scrollTo(0, scrollY)
+      }
+    }
+  }, [isMenuOpen])
 
   return (
     <>
       <motion.nav
+        data-navbar
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-0 w-full z-50 transition-all duration-700 ${
-          scrolled ? "bg-black/80 backdrop-blur-3xl border-b border-white/10 shadow-2xl" : "bg-transparent"
+        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+          scrolled 
+            ? "bg-black/95 backdrop-blur-xl border-b border-white/20 shadow-2xl" 
+            : "bg-transparent"
         }`}
       >
-        <div className="max-w-8xl mx-auto px-8 py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 lg:py-6">
           <div className="flex justify-between items-center">
             {/* Premium Logo */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               className="cursor-pointer group"
-              onClick={() => scrollToSection("hero")}
+              onClick={() => handleMenuClick("hero")}
             >
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-3 sm:space-x-4">
                 <div className="relative">
-                  <div className="w-14 h-14 rounded-3xl bg-gradient-to-br from-white via-gray-100 to-gray-200 flex items-center justify-center shadow-2xl">
-                    <span className="text-black text-xl font-black tracking-tight">AM</span>
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-white via-gray-100 to-gray-200 flex items-center justify-center shadow-xl">
+                    <span className="text-black text-sm sm:text-lg lg:text-xl font-black tracking-tight">AM</span>
                   </div>
-                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                  <div className="absolute -inset-1 rounded-3xl bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 blur-sm"></div>
+                  <div className="absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+                  <div className="absolute -inset-1 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 blur-sm"></div>
                 </div>
                 <div className="hidden sm:block">
-                  <div className="text-2xl font-black text-white tracking-tight">Arijit Mondal</div>
-                  <div className="text-sm text-gray-400 font-medium tracking-wide">Creative Developer</div>
+                  <div className="text-lg sm:text-xl lg:text-2xl font-black text-white tracking-tight">Arijit Mondal</div>
+                  <div className="text-xs sm:text-sm text-gray-400 font-medium tracking-wide">Creative Developer</div>
                 </div>
               </div>
             </motion.div>
 
             {/* Desktop Menu */}
-            <div className="hidden lg:flex items-center space-x-2">
+            <div className="hidden xl:flex items-center space-x-1">
               {menuItems.slice(1).map((item, index) => (
                 <motion.button
                   key={item.id}
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  transition={{ delay: index * 0.05 }}
                   onClick={() => handleMenuClick(item.id)}
-                  className={`relative px-6 py-3 rounded-2xl font-semibold transition-all duration-500 group ${
+                  className={`relative px-4 py-2 rounded-xl font-semibold transition-all duration-300 group ${
                     activeSection === item.id
-                      ? "text-black bg-white shadow-2xl"
+                      ? "text-black bg-white shadow-lg"
                       : "text-gray-300 hover:text-white hover:bg-white/10"
                   }`}
                 >
@@ -106,11 +185,10 @@ export default function PremiumNavbar({ scrollToSection }: NavbarProps) {
                   {activeSection === item.id && (
                     <motion.div
                       layoutId="activeSection"
-                      className="absolute inset-0 bg-white rounded-2xl shadow-2xl"
-                      transition={{ type: "spring", bounce: 0.15, duration: 0.8 }}
+                      className="absolute inset-0 bg-white rounded-xl shadow-lg"
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                     />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-white/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
                 </motion.button>
               ))}
             </div>
@@ -119,8 +197,16 @@ export default function PremiumNavbar({ scrollToSection }: NavbarProps) {
             <motion.button
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-4 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-xl hover:bg-white/20 transition-all duration-500"
+              onClick={(e) => {
+                e.stopPropagation()
+                setIsMenuOpen(!isMenuOpen)
+              }}
+              className={`xl:hidden p-3 rounded-xl backdrop-blur-xl transition-all duration-300 ${
+                isMenuOpen 
+                  ? "bg-white/20 border border-white/30" 
+                  : "bg-white/10 border border-white/20 hover:bg-white/20"
+              }`}
+              aria-label="Toggle menu"
             >
               <AnimatePresence mode="wait">
                 {isMenuOpen ? (
@@ -129,9 +215,9 @@ export default function PremiumNavbar({ scrollToSection }: NavbarProps) {
                     initial={{ rotate: -90, opacity: 0 }}
                     animate={{ rotate: 0, opacity: 1 }}
                     exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.2 }}
                   >
-                    <X className="w-6 h-6 text-white" />
+                    <X className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                   </motion.div>
                 ) : (
                   <motion.div
@@ -139,55 +225,15 @@ export default function PremiumNavbar({ scrollToSection }: NavbarProps) {
                     initial={{ rotate: 90, opacity: 0 }}
                     animate={{ rotate: 0, opacity: 1 }}
                     exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.2 }}
                   >
-                    <Menu className="w-6 h-6 text-white" />
+                    <Menu className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                   </motion.div>
                 )}
               </AnimatePresence>
             </motion.button>
           </div>
         </div>
-
-        {/* Premium Mobile Menu */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="lg:hidden bg-black/95 backdrop-blur-3xl border-t border-white/10"
-            >
-              <div className="max-w-8xl mx-auto px-8 py-8">
-                <div className="space-y-4">
-                  {menuItems.map((item, index) => {
-                    const IconComponent = item.icon
-                    return (
-                      <motion.button
-                        key={item.id}
-                        initial={{ opacity: 0, x: -30 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                        onClick={() => handleMenuClick(item.id)}
-                        className={`w-full p-6 rounded-2xl border transition-all duration-500 text-left group ${
-                          activeSection === item.id
-                            ? "bg-white text-black border-white shadow-2xl"
-                            : "bg-white/5 border-white/10 text-gray-300 hover:bg-white/10 hover:text-white"
-                        }`}
-                      >
-                        <div className="flex items-center space-x-4">
-                          <IconComponent className="w-6 h-6" />
-                          <span className="font-semibold text-lg">{item.label}</span>
-                        </div>
-                      </motion.button>
-                    )
-                  })}
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </motion.nav>
 
       {/* Mobile Menu Overlay */}
@@ -197,9 +243,54 @@ export default function PremiumNavbar({ scrollToSection }: NavbarProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 bg-black/60 z-[49] xl:hidden"
             onClick={() => setIsMenuOpen(false)}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
           />
+        )}
+      </AnimatePresence>
+
+      {/* Premium Mobile Menu - FIXED BLUR ISSUE */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            data-mobile-menu
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="xl:hidden fixed top-[88px] left-0 right-0 z-[51] mx-4 sm:mx-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="bg-black/95 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl overflow-hidden">
+              <div className="p-4 sm:p-6">
+                <div className="space-y-1">
+                  {menuItems.map((item, index) => {
+                    const IconComponent = item.icon
+                    return (
+                      <motion.button
+                        key={item.id}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.03 }}
+                        onClick={() => handleMenuClick(item.id)}
+                        className={`w-full p-4 rounded-xl transition-all duration-200 text-left group ${
+                          activeSection === item.id
+                            ? "bg-white text-black shadow-lg"
+                            : "bg-transparent text-gray-300 hover:bg-white/10 hover:text-white active:bg-white/20"
+                        }`}
+                      >
+                        <div className="flex items-center space-x-3">
+                          <IconComponent className="w-5 h-5 flex-shrink-0" />
+                          <span className="font-semibold">{item.label}</span>
+                        </div>
+                      </motion.button>
+                    )
+                  })}
+                </div>
+              </div>
+            </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </>
