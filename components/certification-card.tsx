@@ -30,21 +30,17 @@ export default function CertificationCard({
       className="p-4 bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl cursor-pointer transition-all duration-300 hover:border-white/40 h-full w-full flex flex-col"
     >
       <div className="relative h-32 rounded-xl overflow-hidden mb-3">
-        <Image 
-          src={image || "/placeholder.svg"} 
+        <Image
+          src={image || "/placeholder.svg"}
           alt={`${title} certificate`}
           fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 280px"
           className="object-cover"
-          onError={(e) => {
-            // Fallback for missing images
-            e.currentTarget.src = "/placeholder.svg";
-          }}
+          priority
         />
-        
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-        
         <div className="absolute bottom-2 left-2">
-          <Badge className="bg-white/90 text-gray-800 font-bold px-2 py-0.5 text-xs">
+          <Badge className="bg-white/90 text-gray-800 font-bold px-2 py-0.5 text-xs hover:bg-white/80 transition-colors">
             {issuer}
           </Badge>
         </div>

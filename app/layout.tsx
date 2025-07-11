@@ -1,5 +1,8 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
+import { Figtree } from "next/font/google"
+
+const figtree = Figtree({ subsets: ["latin"], display: "swap", variable: "--font-figtree" })
 
 export const metadata: Metadata = {
   title: 'Arijit Mondal - AI/ML Researcher & Full-Stack Developer | Portfolio',
@@ -25,6 +28,7 @@ export const metadata: Metadata = {
   creator: 'Arijit Mondal',
   publisher: 'Arijit Mondal',
   robots: 'index, follow',
+  metadataBase: new URL('https://arijitmondal-portfolio.vercel.app/'), // <-- update with your real domain
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -72,7 +76,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className={figtree.variable}>
       <head>
         <meta name="format-detection" content="telephone=no" />
         

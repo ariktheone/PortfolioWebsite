@@ -7,7 +7,15 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
+    // Enable Next.js image optimization
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'arijitmondal-portfolio.vercel.app',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
 }
 

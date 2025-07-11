@@ -41,10 +41,13 @@ import { AnimatedSection, CountUp } from "@/components/animated-sections"
 import Image from "next/image"
 import { Home } from "lucide-react"
 import { useState, useRef } from "react"
-import CircularGallery, { type GalleryControls } from "@/components/circular-gallery"
-import InfiniteScroll from "@/components/infinite-scroll"
-import CertificationCard from "@/components/certification-card"
-import HorizontalCardScroll from "@/components/horizontal-card-scroll"
+import dynamic from "next/dynamic"
+import { link } from "fs"
+
+const CircularGallery = dynamic(() => import("@/components/circular-gallery"), { ssr: false, loading: () => <div style={{height:320}} /> })
+const InfiniteScroll = dynamic(() => import("@/components/infinite-scroll"), { ssr: false, loading: () => <div style={{height:320}} /> })
+const CertificationCard = dynamic(() => import("@/components/certification-card"), { ssr: false, loading: () => <div style={{height:280}}>Loading...</div> })
+const HorizontalCardScroll = dynamic(() => import("@/components/horizontal-card-scroll"), { ssr: false })
 
 export default function Portfolio() {
   const { scrollYProgress } = useScroll()
@@ -65,7 +68,7 @@ export default function Portfolio() {
       title: "JavaScript for Beginners: The Complete Course",
       issuer: "Udemy",
       date: "August 2023",
-      image: "JavaScript for Beginners: The Complete Course.png", // Replace with your actual certificate image
+      image: "/JavaScript for Beginners: The Complete Course.png", // Replace with your actual certificate image
       credentialLink: "http://ude.my/UC-9f1f4002-6973-4d6b-958b-f75293581de6", // Replace with your actual certificate URL
       credentialId: "UDEMY-JS-BEGINNER-080123",
       skills: ["JavaScript", "Web Development", "Frontend Basics", "Programming Fundamentals"]
@@ -74,7 +77,7 @@ export default function Portfolio() {
       title: "Introduction to Machine Learning",
       issuer: "NPTEL (IIT Kharagpur)",
       date: "April 2024", // Adjust if different
-      image: "Introduction to Machine Learning.png", // You can replace this with a custom or NPTEL badge/logo image
+      image: "/Introduction to Machine Learning.png", // You can replace this with a custom or NPTEL badge/logo image
       credentialLink: "https://drive.google.com/file/d/1WuSjXHS02u4GoyffFC_O7imKYoJFkmvZ/view",
       credentialId: "NPTEL-ML-IITKGP-2025",
       skills: ["Machine Learning", "Supervised Learning", "Unsupervised Learning", "Model Evaluation", "Python"]
@@ -83,7 +86,7 @@ export default function Portfolio() {
       title: "Security, Compliance, and Identity Fundamentals",
       issuer: "Microsoft",
       date: "May 2023", // Adjust if needed
-      image: "Security, Compliance, and Identity Fundamentals.png",
+      image: "/Security, Compliance, and Identity Fundamentals.png",
       credentialLink: "https://www.credly.com/badges/0ae5dbf6-94e3-427f-8be9-c985c9a98064/linked_in_profile",
       credentialId: "SC-900",
       skills: [
@@ -101,7 +104,7 @@ export default function Portfolio() {
       title: "Front-End Developer Capstone",
       issuer: "Meta (via Coursera)",
       date: "February 2023",
-      image: "Front-End Developer Capstone.png",
+      image: "/Front-End Developer Capstone.png",
       credentialLink: "https://www.coursera.org/account/accomplishments/verify/TLHDCNDWC3RD",
       credentialId: "TLHDCNDWC3RD",
       skills: [
@@ -123,7 +126,7 @@ export default function Portfolio() {
       title: "ISWDP Level 1 Certification",
       issuer: "IISc Bangalore & Synopsys (SARA)",
       date: "March 15, 2025",
-      image: "ISWDP Level 1 Certification.png", // IISc Logo
+      image: "/ISWDP Level 1 Certification.png", // IISc Logo
       credentialLink: "https://drive.google.com/file/d/1xdXid5M_4IVoTHhSOVgCaDLiHfXQKzn6/view",
       credentialId: "ISWDP-L1-2025",
       skills: [
@@ -149,7 +152,7 @@ export default function Portfolio() {
       title: "Databases and SQL for Data Science with Python",
       issuer: "Coursera - IBM",
       date: "June 2025",
-      image: "Databases and SQL for Data Science with Python.png",
+      image: "/Databases and SQL for Data Science with Python.png",
       credentialLink: "https://coursera.org/share/6ad1075f53b060bcd92f4cd320a71a5a", // update if you have a unique link
       credentialId: "IBM-SQLDS-2025",
       skills: ["SQL", "Databases", "Data Analysis", "Python"]
@@ -158,7 +161,7 @@ export default function Portfolio() {
       title: "Problem Solving through Programming in C",
       issuer: "NPTEL",
       date: "April 2024",
-      image: "Problem Solving through Programming in C.png",
+      image: "/Problem Solving through Programming in C.png",
       credentialLink: "https://archive.nptel.ac.in/content/noc/NOC24/SEM1/Ecertificates/106/noc24-cs42/Course/NPTEL24CS42S55970014130411384.pdf",
       credentialId: "NPTEL24CS42S559700141",
       skills: ["C Programming", "Problem Solving", "Algorithms", "Logic Building"]
@@ -167,7 +170,7 @@ export default function Portfolio() {
       title: "Introduction to Cybersecurity Tools & Cyberattacks",
       issuer: "IBM (via Coursera)",
       date: "June 2023", // Update if needed
-      image: "Introduction to Cybersecurity Tools & Cyberattacks.png", // IBM logo vector URL
+      image: "/Introduction to Cybersecurity Tools & Cyberattacks.png", // IBM logo vector URL
       credentialLink: "https://www.coursera.org/account/accomplishments/verify/3QJL6YRLJF3N",
       credentialId: "3QJL6YRLJF3N",
       skills: [
@@ -189,7 +192,7 @@ export default function Portfolio() {
       title: "Signals and Systems",
       issuer: "NPTEL",
       date: "June 2024",
-      image: "Signals and Systems.png",
+      image: "/Signals and Systems.png",
       credentialLink: "https://archive.nptel.ac.in/content/noc/NOC24/SEM1/Ecertificates/108/noc24-ee28/Course/NPTEL24EE28S65970111930411384.pdf",
       credentialId: "NPTEL24EE28S65970111930411384",
       skills: ["Signals", "Systems", "Linear Time-Invariant Systems", "Engineering Mathematics"]
@@ -253,7 +256,7 @@ export default function Portfolio() {
       tech: ["Python", "CNN", "GAN", "Flask", "React", "Docker", "OpenCV"],
       github: "https://github.com/ariktheone",
       live: "#",
-      image: "/placeholder.svg?height=300&width=500",
+      image: "/AI-Based Deepfake Detection System.png?height=300&width=500",
       category: "AI/ML",
     },
   ]
@@ -288,6 +291,7 @@ export default function Portfolio() {
         "A high-efficiency In₀.₅₁Ga₀.₄₉P/GaAs dual-junction solar cell was designed using Silvaco TCAD, achieving 25.65% efficiency by optimizing lattice-matched layers and employing GaAs as a tunnel junction.",
       type: "Journal",
       status: "Published",
+      link: "https://journals.stmjournals.com/jopc/article=2024/view=188638/", // Replace with actual link
     },
     {
       title:
@@ -300,6 +304,7 @@ export default function Portfolio() {
         "Customized material and method definitions in Silvaco TCAD enhance simulation accuracy by overcoming limitations of default models in advanced semiconductor device design.",
       type: "Conference",
       status: "Published",
+      link: "https://ieeexplore.ieee.org/document/10870805", // Replace with actual link
     },
     {
       title:
@@ -312,6 +317,7 @@ export default function Portfolio() {
         "The proposed TMG-VTFET leverages vertical design, narrow bandgap source, and triple metal gates, with HfO₂ enabling superior electrostatic control and enhanced device performance.",
       type: "Conference",
       status: "Published",
+      link: "https://ieeexplore.ieee.org/document/10914239", // Replace with actual link
     },
   ]
 
@@ -470,9 +476,9 @@ export default function Portfolio() {
   ]
 
   const [currentGalleryIndex, setCurrentGalleryIndex] = useState(0)
-  const galleryControlsRef = useRef<GalleryControls | null>(null)
+  const galleryControlsRef = useRef<any>(null)
 
-  const handleGalleryInit = (controls: GalleryControls) => {
+  const handleGalleryInit = (controls: any) => {
     galleryControlsRef.current = controls
   }
 
@@ -614,8 +620,8 @@ export default function Portfolio() {
                 asChild
               >
                 <a 
-                  href="/resume.pdf" 
-                  download="Arijit_Mondal_Resume.pdf"
+                  href="/ArijitMondalResume.pdf" 
+                  // download="Arijit_Mondal_Resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -917,7 +923,7 @@ export default function Portfolio() {
             {publications.map((pub, index) => (
               <UltraModernCard key={pub.title} delay={index}>
                 <CardContent className="p-12">
-                  <div className="flex items-start justify-between mb-8">
+                  <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-8 gap-8">
                     <div className="flex items-center">
                       <div
                         className={`w-16 h-16 rounded-3xl mr-8 flex items-center justify-center shadow-2xl ${
@@ -959,7 +965,7 @@ export default function Portfolio() {
                     </div>
                   </div>
 
-                  <div className="ml-24 space-y-6">
+                  <div className="space-y-6">
                     <p className="text-gray-700 leading-relaxed text-lg font-light">{pub.abstract}</p>
                     <div className="flex items-center space-x-4">
                       <Button
@@ -968,9 +974,15 @@ export default function Portfolio() {
                         className="border-gray-600/50 text-gray-700 hover:bg-gray-700/50 hover:text-white transition-all duration-300"
                         asChild
                       >
-                        <a href={`https://doi.org/${pub.doi}`} target="_blank" rel="noopener noreferrer">
+                        <a
+                          href={pub.link ? pub.link : `https://doi.org/${pub.doi}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          tabIndex={0}
+                          className="focus:outline-none"
+                        >
                           <ExternalLink className="w-4 h-4 mr-2" />
-                          DOI: {pub.doi}
+                          DOI : {pub.doi}
                         </a>
                       </Button>
                     </div>

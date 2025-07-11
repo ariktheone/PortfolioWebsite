@@ -80,7 +80,20 @@ export default function PremiumNavbar({ scrollToSection, menuItems: propMenuItem
   }, [menuItems, isMenuOpen])
 
   const handleMenuClick = (sectionId: string) => {
-    scrollToSection(sectionId)
+    // Restore scroll position if body is fixed
+    if (document.body.style.position === 'fixed') {
+      const scrollY = parseInt(document.body.style.top || '0', 10) * -1
+      document.body.style.position = ''
+      document.body.style.top = ''
+      document.body.style.width = ''
+      document.body.style.overflow = ''
+      window.scrollTo(0, scrollY)
+      setTimeout(() => {
+        scrollToSection(sectionId)
+      }, 10) // slight delay to ensure scroll restoration
+    } else {
+      scrollToSection(sectionId)
+    }
     setIsMenuOpen(false)
   }
 

@@ -139,7 +139,7 @@ export function ProjectCard({
 							<Button
 								size="sm"
 								variant="outline"
-								className="border-white/40 text-white hover:bg-white/20 hover:text-white backdrop-blur-xl shadow-2xl"
+								className="border-white/40 text-gray-700 hover:bg-white/20 hover:text-white backdrop-blur-xl shadow-2xl"
 								asChild
 							>
 								<a href={github} target="_blank" rel="noopener noreferrer">
@@ -273,7 +273,7 @@ export function SkillCard({
 							<Badge
 								key={skill}
 								variant="outline"
-								className="border-white/30 text-gray-800 bg-white/10 hover:bg-white/20 hover:text-white transition duration-300 ease-in-out text-xs sm:text-sm font-medium px-2 sm:px-3 py-1 sm:py-1.5 rounded-full shadow-md backdrop-blur-sm whitespace-nowrap"
+								className="border-white/30 text-gray-800 bg-white/10 hover:bg-gray-100 hover:text-black-250 transition duration-300 ease-in-out text-xs sm:text-sm font-medium px-2 sm:px-3 py-1 sm:py-1.5 rounded-full shadow-md backdrop-blur-sm whitespace-nowrap"
 							>
 								{skill}
 							</Badge>
