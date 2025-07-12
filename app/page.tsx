@@ -236,7 +236,7 @@ export default function Portfolio() {
       tech: ["VHDL", "Vivado", "Verilog", "FPGA", "Digital Signal Processing"],
       github: "https://github.com/ariktheone/ATLC-Design-DSP-driven-Urban-Traffic-Control-in-VHDL",  // Replace with actual repository link if available
       live: "#",
-      image: "https://github.com/ariktheone/ATLC-Design-DSP-driven-Urban-Traffic-Control-in-VHDL/blob/main/image1.png?raw=true?height=300&width=500",
+      image: "/Automated Traffic Light Controller (ATLC).png?height=300&width=500",
       category: "Hardware & Embedded Systems"
     },
     {
