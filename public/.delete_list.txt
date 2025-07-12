@@ -1,0 +1,7 @@
+placeholder-logo.png
+placeholder-logo.svg
+placeholder-user.jpg
+placeholder.jpg
+placeholder.svg
+gallery/image1_test.webp
+favicon_io/about.txt

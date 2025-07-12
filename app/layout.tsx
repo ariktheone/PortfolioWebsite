@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import { Figtree } from "next/font/google"
-
+import { Analytics } from "@vercel/analytics/next"
 const figtree = Figtree({ subsets: ["latin"], display: "swap", variable: "--font-figtree" })
 
 export const metadata: Metadata = {
