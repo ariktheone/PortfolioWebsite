@@ -59,11 +59,13 @@ export default function Navbar({ scrollToSection }: NavbarProps) {
   return (
     <>
       <motion.nav
+        data-navbar
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        transition={{ duration: 0.25, ease: "easeOut" }}
+        className={`fixed top-0 w-full z-50 will-change-transform transition-all duration-200 ${
           scrolled
-            ? "bg-slate-950/90 backdrop-blur-xl border-b border-blue-500/30 shadow-lg shadow-blue-500/10"
+            ? "bg-black/90 backdrop-blur-md border-b border-white/20 shadow-lg"
             : "bg-transparent"
         }`}
       >

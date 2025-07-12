@@ -149,9 +149,10 @@ export default function PremiumNavbar({ scrollToSection, menuItems: propMenuItem
         data-navbar
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        transition={{ duration: 0.25, ease: "easeOut" }} // Reduce duration for snappier feel
+        className={`fixed top-0 w-full z-50 will-change-transform transition-all duration-200 ${
           scrolled 
-            ? "bg-black/95 backdrop-blur-xl border-b border-white/20 shadow-2xl" 
+            ? "bg-black/90 backdrop-blur-md border-b border-white/20 shadow-lg" // lighter blur/shadow
             : "bg-transparent"
         }`}
       >

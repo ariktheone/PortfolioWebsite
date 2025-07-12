@@ -51,10 +51,12 @@ export default function ModernNavbar({ scrollToSection }: NavbarProps) {
   return (
     <>
       <motion.nav
+        data-navbar
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-          scrolled ? "bg-slate-950/95 backdrop-blur-xl border-b border-slate-800/50 shadow-lg" : "bg-transparent"
+        transition={{ duration: 0.25, ease: "easeOut" }}
+        className={`fixed top-0 w-full z-50 will-change-transform transition-all duration-200 ${
+          scrolled ? "bg-black/90 backdrop-blur-md border-b border-white/20 shadow-lg" : "bg-transparent"
         }`}
       >
         <div className="container mx-auto px-6 py-4">
