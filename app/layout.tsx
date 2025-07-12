@@ -150,6 +150,7 @@ export default function RootLayout({
       </head>
       <body className="bg-black min-h-screen" suppressHydrationWarning>
         {children}
+        <Analytics />
       </body>
     </html>
   );
